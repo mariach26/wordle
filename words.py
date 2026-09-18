@@ -1014,7 +1014,7 @@ for i in range(len(wordslist)-1):
 def get_word():
     return random.choice(outputwordslist)
 
-print(get_word())
+#print(get_word())
 
 
 

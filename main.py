@@ -24,7 +24,7 @@ wordInput = ctk.CTkEntry(
 
 wordInput.grid(row=6, column=0, columnspan=5, pady=20) 
 
-def getGuess():
+def getGuess(event=None):
     global word
     guess= wordInput.get()
 
@@ -41,6 +41,10 @@ def getGuess():
                 root.destroy()
 
             else: #lathos
+                unmatched = []
+                for i in range(5): #poia grammata DEN einai prasina
+                    if guess[i] != word[i]:
+                        unmatched.append(word[i])
                 for i, letter in enumerate(guess):
             
                     label = ctk.CTkLabel(root, text=letter.upper(), width=40, height=40, corner_radius=5)
@@ -48,8 +52,9 @@ def getGuess():
                     
                     if letter == word[i]:
                         label.configure(fg_color=GREEN, text_color=BLACK)
-                    elif letter in word:
+                    elif letter in unmatched:
                         label.configure(fg_color=YELLOW, text_color=BLACK)
+                        unmatched.remove(letter) #svhnw to gramma gia na mhn ginei ksana kitrino
                     else:
                         label.configure(fg_color=GRAY, text_color=WHITE)
                 guessnum += 1
@@ -68,6 +73,6 @@ def getGuess():
 wordGuessButton= ctk.CTkButton(root, text="Guess", command=getGuess)
 wordGuessButton.grid(row=999, column=3, columnspan=2)
 
-
+root.bind('<Return>', getGuess)
 
 root.mainloop()
